@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pet-finder"
+version = "0.1.0"
+description = ""
+authors = ["joseph muchene <66246216+joseph-muchene@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "pet_finder"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^2.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
