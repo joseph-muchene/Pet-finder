@@ -3,23 +3,18 @@
 <h1 class="mb-2 text-center">Lost Pet</h1>
 
 <div class="container">
-  <form action="">
+  <form method="post">
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" name="name" class="form-control" />
+      <input type="text" name="name" class="form-control" id="name" />
     </div>
     <div class="form-group">
       <label for="age">Age</label>
-      <input type="number" name="age" class="form-control" />
-    </div>
-
-    <div class="form-group">
-      <label for="lost">Lost Date</label>
-      <input type="text" name="lost" class="form-control" />
+      <input type="number" name="age" class="form-control" id="age" />
     </div>
 
     <div class="form-group my-2">
-      <button class="btn btn-secondary">Report</button>
+      <button type="submit" class="btn btn-secondary">Report</button>
     </div>
   </form>
 </div>

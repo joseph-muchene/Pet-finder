@@ -1,9 +1,7 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
-
-from sqlalchemy import Column, Integer, DateTime, Boolean
-import datetime
+from sqlalchemy.sql import func
 app = Flask(__name__)
 db = SQLAlchemy()
 
@@ -18,10 +16,11 @@ class Pet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    created_date = Column(DateTime, default=datetime.datetime.utcnow)
-    found = Column(Boolean, default=False)
+    lost = db.Column(db.DateTime(timezone=True),
+                     server_default=func.now())
+    found = db.Column(db.Boolean, default=False)
 
-    def __init__(self):
+    def __repr__(self):
         return f"{id} {self.name}"
 
 
@@ -31,21 +30,22 @@ def index():
     return render_template('index.html', pets=pets)
 
 
-@app.route('/pet/create')
+@app.route('/pet/create', methods=['GET', 'POST'])
 def pet_create():
+    # print(request.method)
     if request.method == "POST":
         pet = Pet(
             name=request.form["name"],
             age=request.form["age"],
-            created_date=request.form["created_date"],
-            found=request.form["found"]
+            # lost=request.form["lost"],
+
 
         )
 
         db.session.add(pet)
         db.session.commit()
         # redirect user to homepage
-        return redirect(url_for("detail", id=pet.id))
+        return redirect(url_for("index", id=pet.id))
 
     return render_template('create.html')
 
@@ -54,9 +54,6 @@ def pet_create():
 def user_detail(id):
     pet = db.get_or_404(Pet, id)
     return render_template("detail.html", pet=pet)
-
-    # with app.app_context():
-    #     db.create_all()
 
 
 @app.route("/pet/<int:id>/delete", methods=["GET", "POST"])
@@ -71,7 +68,7 @@ def pet_delete(id):
     return render_template("user/delete.html", pet=pet)
 
 
-@app.route("/pet/<int:id>/delete", methods=["GET", "POST"])
+@app.route("/pet/<int:id>/update", methods=["GET", "POST"])
 def pet_update(id):
     pet = Pet.query.filter_by(id=id).first()
 
@@ -80,13 +77,13 @@ def pet_update(id):
         db.session.commit()
         return redirect(url_for("index.html"))
 
-    return render_template("user/delete.html", pet=pet)
+    return render_template("update.html", pet=pet)
 
 
-@app.route("/found")
-def Found():
-    pets = Pet.query.filter_by(found=True)
-    return render_template('found.html', pets=pets)
+# @app.route("/found")
+# def Found():
+#     pets = Pet.query.filter_by(found=True)
+#     return render_template('found.html', pets=pets)
 
 
 @app.route("/update")
