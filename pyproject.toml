@@ -10,6 +10,7 @@ packages = [{include = "pet_finder"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 Flask = "^2.2.2"
+flask-sqlalchemy = "^3.0.2"
 
 
 [build-system]
