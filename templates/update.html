@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block title %}Index{% endblock %} {% block content
+%}
+<h1 class="mb-2 text-center">Report Found</h1>
+
+<div class="container">
+  <form action="">
+    <div class="form-group">
+      <select name="found" id="found" class="form-control">
+        <option value=""></option>
+        <option value="true">Found</option>
+        <option value="false">Not Found</option>
+      </select>
+    </div>
+
+    <div class="form-group my-2">
+      <button class="btn btn-primary">Report Found</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

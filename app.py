@@ -45,9 +45,9 @@ def pet_create():
         db.session.add(pet)
         db.session.commit()
         # redirect user to homepage
-        return redirect(url_for("index"))
+        return redirect(url_for("detail", id=pet.id))
 
-    return render_template('index.html')
+    return render_template('create.html')
 
 
 @app.route("/pet/<int:id>")
@@ -60,7 +60,7 @@ def user_detail(id):
 
 
 @app.route("/pet/<int:id>/delete", methods=["GET", "POST"])
-def user_delete(id):
+def pet_delete(id):
     pet = db.get_or_404(Pet, id)
 
     if request.method == "POST":
@@ -71,6 +71,30 @@ def user_delete(id):
     return render_template("user/delete.html", pet=pet)
 
 
-if __name__ == '__main__':
+@app.route("/pet/<int:id>/delete", methods=["GET", "POST"])
+def pet_update(id):
+    pet = Pet.query.filter_by(id=id).first()
 
+    if request.method == "POST":
+        pet.found = request.form["found"]
+        db.session.commit()
+        return redirect(url_for("index.html"))
+
+    return render_template("user/delete.html", pet=pet)
+
+
+@app.route("/found")
+def Found():
+    pets = Pet.query.filter_by(found=True)
+    return render_template('found.html', pets=pets)
+
+
+@app.route("/update")
+def Update():
+
+    return render_template('update.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
     app.run()
