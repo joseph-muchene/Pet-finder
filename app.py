@@ -73,17 +73,18 @@ def pet_update(id):
     pet = Pet.query.filter_by(id=id).first()
 
     if request.method == "POST":
-        pet.found = request.form["found"]
+
+        pet.found = bool(request.form["found"].capitalize())
         db.session.commit()
-        return redirect(url_for("index.html"))
+        return redirect(url_for("index"))
 
     return render_template("update.html", pet=pet)
 
 
-# @app.route("/found")
-# def Found():
-#     pets = Pet.query.filter_by(found=True)
-#     return render_template('found.html', pets=pets)
+@app.route("/found")
+def Found():
+    pets = Pet.query.filter_by(found=True)
+    return render_template('found.html', pets=pets)
 
 
 @app.route("/update")

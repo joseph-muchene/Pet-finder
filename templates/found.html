@@ -7,41 +7,25 @@
 </style>
 {% endblock %} {% block content %}
 <div class="row text-center container mt-2">
+  {% for pet in pets %} {% if pet.found == True %}
   <div class="col mb-3">
     <div class="card" style="width: 18rem">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item"><span class="mr-3">NAME: </span> caro</li>
-        <li class="list-group-item"><span class="mr-3">AGE: </span> 1</li>
         <li class="list-group-item">
-          <span class="mr-3">LOST: </span> 1/3/2022
+          <span class="mr-3">NAME: </span> {{pet.name}}
         </li>
-        <li class="list-group-item"><span class="mr-3">Found: </span>True</li>
+        <li class="list-group-item">
+          <span class="mr-3">AGE: </span> {{pet.age}}
+        </li>
+        <li class="list-group-item">
+          <span class="mr-3">LOST: </span> {{pet.lost}}
+        </li>
+        <li class="list-group-item">
+          <span class="mr-3">Found: </span>{{pet.found}}
+        </li>
       </ul>
     </div>
   </div>
-  <div class="col mb-3">
-    <div class="card" style="width: 18rem">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><span class="mr-3">NAME: </span> caro</li>
-        <li class="list-group-item"><span class="mr-3">AGE: </span> 1</li>
-        <li class="list-group-item">
-          <span class="mr-3">LOST: </span> 1/3/2022
-        </li>
-        <li class="list-group-item"><span class="mr-3">Found: </span>True</li>
-      </ul>
-    </div>
-  </div>
-  <div class="col mb-3">
-    <div class="card" style="width: 18rem">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><span class="mr-3">NAME: </span> caro</li>
-        <li class="list-group-item"><span class="mr-3">AGE: </span> 1</li>
-        <li class="list-group-item">
-          <span class="mr-3">LOST: </span> 1/3/2022
-        </li>
-        <li class="list-group-item"><span class="mr-3">Found: </span>True</li>
-      </ul>
-    </div>
-  </div>
+  {%endif%} {%endfor%}
 </div>
 {% endblock %}

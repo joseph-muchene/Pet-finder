@@ -8,7 +8,8 @@
 {% endblock %} {% block content %}
 <div class="row text-center container mt-2 " >
     {% for pet in pets %}
-  <div class="col mb-3">
+{% if pet.found  != True %}
+ <div class="col mb-3">
     <div class="card" style="width: 18rem">
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><span class="mr-3">NAME: </span> {{pet.name}}</li>
@@ -20,12 +21,14 @@
       </ul>
 
       <div class="card-body">
-        <button class="btn btn-danger">
-          <a href="{{ url_for('pet_update', id=pet.id) }}">Report Found</a>
+        <button class="btn btn-secondary">
+          <a href="{{ url_for('pet_update', id=pet.id) }}" class="text-white text-decoration-none">Report Found</a>
         </a>
       </div>
     </div>
   </div>
+{%endif%}
+ 
 
   {%endfor%}
 
